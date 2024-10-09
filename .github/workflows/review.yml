@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Lint Code Base
-        uses: github/super-linter@b92721f792f381cedc002ecdbb9847a15ece5bb8 # v7.1.0 https://github.com/super-linter/super-linter/commit/b92721f792f381cedc002ecdbb9847a15ece5bb8
+        uses: github/super-linter@b807e99ddd37e444d189cfd2c2ca1274d8ae8ef1 # v7.1.0 https://github.com/super-linter/super-linter/commit/b92721f792f381cedc002ecdbb9847a15ece5bb8
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ github.token }}
