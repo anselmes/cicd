@@ -1,0 +1,23 @@
+---
+services:
+  cicd:
+    image: ghcr.io/anselmes/cicd:main
+    privileged: true
+    stdin_open: true
+    tty: true
+    user: root # note: required for /sbin/init
+    working_dir: /home/cicd/workspace
+    # env_file:
+    #   - .env
+    volumes:
+      - .:/home/cicd/workspace
+      - ~/.gitconfig:/home/cicd/.gitconfig:ro
+      - ~/.gnupg:/home/cicd/.gnupg:ro
+      - ~/.ssh:/home/cicd/.ssh:ro
+      - ~/.zshrc:/home/cicd/.zshrc:ro
+    ports:
+      - 10022:22
+      - 10080:80
+      - 10443:443
+      - 15900:5900
+      - 16443:6443
