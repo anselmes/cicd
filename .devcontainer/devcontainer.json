@@ -3,6 +3,6 @@
   "dockerComposeFile": ["${localWorkspaceFolder}/compose-dev.yaml"],
   "service": "cicd",
   "workspaceFolder": "/home/cicd/workspace",
-  "postCreateCommand": "${containerWorkspaceFolder}/scripts/config-cicd.sh",
+  "postCreateCommand": "${containerWorkspaceFolder}/scripts/config-devos.sh",
   "remoteUser": "devos"
 }
