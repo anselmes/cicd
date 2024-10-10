@@ -50,19 +50,21 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+
       - name: Cleanup cache
         shell: bash
         run: ./scripts/delete-gh-actions-cache.sh
         if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' }}
         env:
           BRANCH: refs/pull/${{ github.event.pull_request.number }}/merge
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+
       - name: Cleanup cache
         shell: bash
         run: ./scripts/delete-gh-actions-cache.sh
         if: ${{ github.event_name != 'pull_request' }}
         env:
           BRANCH: ${{ inputs.branch || github.ref }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
