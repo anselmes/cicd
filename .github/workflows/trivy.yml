@@ -6,7 +6,7 @@ on:
 permissions: read-all
 
 jobs:
-  trivy:
+  scan:
     runs-on: ubuntu-latest
     permissions:
       contents: write
