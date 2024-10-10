@@ -10,8 +10,10 @@ inputs:
   container-image-context:
     default: .
     description: Container image context
-  container-image-custom-tag:
-    description: Container image custom tag
+  container-image-tags:
+    description: Container image tags
+  container-image-labels:
+    description: Container image labels
   container-image-file:
     description: Container image file
   container-image-name:
@@ -45,22 +47,15 @@ runs:
       uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1 https://github.com/docker/metadata-action/commit/8e5442c4ef9f78752691e2d8f8d19755c6f78e81
       if: ${{ inputs.build-container-image == 'true' }}
       with:
-        # images: ${{ inputs.container-image-repo }}/${{ inputs.container-image-repo-username }}/${{ inputs.container-image-name }}
-        images: ghcr.io/sanselme/devcontainer
-        labels: |
-          org.opencontainers.image.title=${{ inputs.container-image-name }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{major}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=semver,pattern={{version}}
+        images: ${{ inputs.container-image-name }}
+        labels: ${{ inputs.container-image-labels }}
+        tags: ${{ inputs.container-image-tags }}
     - name: Login to Container Registry
       uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0 https://github.com/docker/login-action/commit/9780b0c442fbb1117ed29e0efdff1e18412f7567
       if: ${{ inputs.build-container-image == 'true' && inputs.push-container-image == 'true' }}
       with:
         registry: ${{ inputs.container-image-repo }}
-        username: ${{ github.repository_owner }}
+        username: ${{ inputs.container-image-repo-username }}
         password: ${{ inputs.container-image-repo-password }}
     - name: Build and push
       id: build
@@ -75,7 +70,7 @@ runs:
         build-args: ${{ inputs.container-image-build-args }}
         labels: ${{ steps.meta.outputs.labels }}
         provenance: true
-        tags: ${{ steps.meta.outputs.tags }} # todo: ,${{ inputs.container-image-repo }}/${{ inputs.container-image-repo-username }}/${{ inputs.container-image-custom-tag }}
+        tags: ${{ steps.meta.outputs.tags }}
         platforms: ${{ inputs.container-image-platforms }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
