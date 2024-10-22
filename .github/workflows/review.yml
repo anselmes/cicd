@@ -86,7 +86,7 @@ jobs:
         uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0 https://github.com/actions/labeler/commit/8558fd74291d67161a8a78ce36a881fa63b766a9
 
       - name: Dependency Review
-        uses: actions/dependency-review-action@5a2ce3f5b92ee19cbb1541a4984c76d921601d7c # v4.3.4 https://github.com/actions/dependency-review-action/commit/5a2ce3f5b92ee19cbb1541a4984c76d921601d7c
+        uses: actions/dependency-review-action@a6993e2c61fd5dc440b409aa1d6904921c5e1894 # v4.3.4 https://github.com/actions/dependency-review-action/commit/5a2ce3f5b92ee19cbb1541a4984c76d921601d7c
         with:
           allow-ghsas: none
           allow-licenses: Apache-2.0,BSD-2-Clause,BSD-3-Clause,CC0-1.0,GPL-2.0,GPL-3.0,ISC,MIT,LGPL-3.0
