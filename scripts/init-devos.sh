@@ -31,7 +31,7 @@ set -euxo pipefail
 : "${VAULT_VERSION:=1.17.6}"
 : "${YQ_VERSION:=4.44.3}"
 
-ARGS="$*"
+ARGS="$@"
 DIR="$(dirname "$(realpath "$(dirname "${0}")")")"
 
 apt-get update -yq
