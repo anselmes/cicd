@@ -4,7 +4,7 @@
 
 set -exo pipefail
 
-DIR="$(dirname $(realpath $(dirname "${0}")))"
+DIR="$(dirname "$(realpath "$(dirname "${0}")")")"
 
 # configure environment
 if [[ ! -d "/home/ubuntu/.oh-my-zsh" ]]; then

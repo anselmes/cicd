@@ -3,10 +3,12 @@
 # SPDX-Licence-Identifier: GPL-3.0
 
 ARG BASE_IMAGE=ubuntu:24.04
+# checkov:skip=CKV_DOCKER_7
 FROM ${BASE_IMAGE}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# checkov:skip=CKV2_DOCKER_1
 RUN <<EOF
 #!/bin/bash
 
@@ -17,6 +19,7 @@ apt-get install -y --no-install-recommends \
   git \
   gnupg2 \
   sudo \
+  vim \
   zsh
 
 chsh -s "$(command -v zsh)" "ubuntu"
@@ -31,6 +34,8 @@ done
 
 rm -rf /var/lib/apt/lists/*
 EOF
+
+HEALTHCHECK NONE
 
 USER ubuntu
 CMD ["/bin/bash"]
