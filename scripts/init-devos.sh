@@ -1,5 +1,6 @@
 #!/bin/bash
-# SPDX-License-Identifier: GPL-3.0
+# Copyright (c) 2025 Schubert Anselme <schubert@anselm.es>
+# SPDX-Licence-Identifier: GPL-3.0
 
 set -euxo pipefail
 
@@ -30,8 +31,8 @@ set -euxo pipefail
 : "${VAULT_VERSION:=1.17.6}"
 : "${YQ_VERSION:=4.44.3}"
 
-ARGS=${@}
-DIR="$(dirname $(realpath $(dirname "${0}")))"
+ARGS="$@"
+DIR="$(dirname "$(realpath "$(dirname "${0}")")")"
 
 apt-get update -yq
 apt-get install --no-install-recommends -y \

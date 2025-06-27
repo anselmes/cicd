@@ -1,4 +1,5 @@
 #!/bin/bash
+# Copyright (c) 2025 Schubert Anselme <schubert@anselm.es>
 # SPDX-License-Identifier: GPL-3.0
 
 set -euxo pipefail

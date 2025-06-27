@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@dbb049abf0d677abbd7f7eee0375145b417fdd34 # v2.2.0 https://github.com/dependabot/fetch-metadata/commit/dbb049abf0d677abbd7f7eee0375145b417fdd34
+        uses: dependabot/fetch-metadata@08eff52bf64351f401fb50d4972fa95b9f2c2d1b # v2.4.0 https://github.com/dependabot/fetch-metadata/commit/08eff52bf64351f401fb50d4972fa95b9f2c2d1b
         with:
           alert-lookup: true
           compat-lookup: true
@@ -42,5 +42,5 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           PR_URL: ${{ github.event.pull_request.html_url }}
 
-  # todo: raise issue on failure for cron job
-  # todo: update issue on job run failure
+  # TODO: #21 raise issue on failure for cron job
+  # TODO: #22 update issue on job run failure
