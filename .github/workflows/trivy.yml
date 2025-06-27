@@ -3,24 +3,23 @@ name: Trivy
 on:
   - workflow_call
 
-permissions: read-all
+permissions:
+  contents: write
+  id-token: write
+  security-events: write
 
 jobs:
   scan:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
-      security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2 https://github.com/actions/checkout/commit/11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Run Trivy vulnerability scanner in repo mode
-        uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 # v0.24.0 https://github.com/aquasecurity/trivy-action/commit/6e7b7d1fd3e4fef0c5fa8cce1229c54b2c9bd0d8
+        uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # v0.31.0 https://github.com/aquasecurity/trivy-action/commit/76071ef0d7ec797419534a183b498b4d6366cf37
         with:
           exit-code: 1
           format: sarif
@@ -30,13 +29,13 @@ jobs:
           scan-type: fs
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@b8efe4dc6ab6d31abe3ec159420d2a4916880800 # v3.26.6 https://github.com/github/codeql-action/commit/b8efe4dc6ab6d31abe3ec159420d2a4916880800
+        uses: github/codeql-action/upload-sarif@9b02dc2f60288b463e7a66e39c78829b62780db7 # v2.22.1 https://github.com/github/codeql-action/commit/9b02dc2f60288b463e7a66e39c78829b62780db7
         if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
         with:
           sarif_file: trivy-results.sarif
 
       - name: Run Trivy SBOM and submit results to Dependency Graph
-        uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 # v0.24.0 https://github.com/aquasecurity/trivy-action/commit/6e7b7d1fd3e4fef0c5fa8cce1229c54b2c9bd0d8
+        uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # v0.31.0 https://github.com/aquasecurity/trivy-action/commit/76071ef0d7ec797419534a183b498b4d6366cf37
         if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
         with:
           format: github

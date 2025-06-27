@@ -53,5 +53,6 @@ jobs:
       security-events: write
       statuses: read
 
+  # TODO: #17 Enable SonarQube Scan
   # sonarqube:
   #   uses: ./.github/workflows/sonarqube.yml
