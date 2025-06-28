@@ -75,6 +75,7 @@ jobs:
 
       # TODO: #17 Enable SonarQube Scan
       # - name: SonarQube Scan
+      # trunk-ignore(semgrep/generic.secrets.security.detected-sonarqube-docs-api-key.detected-sonarqube-docs-api-key)
       #   uses: sonarsource/sonarqube-scan-action@2500896589ef8f7247069a56136f8dc177c27ccf # v5.2.0 https://github.com/SonarSource/sonarqube-scan-action/commit/2500896589ef8f7247069a56136f8dc177c27ccf
       #   env:
       #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

@@ -61,8 +61,10 @@ runs:
       id: build
       uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0 https://github.com/docker/build-push-action/commit/263435318d21b8e681c14492fe198d362a7d2c83
       if: ${{ inputs.build-container-image == 'true' }}
+      env:
+        CONTEXT: ${{ inputs.container-image-context }}
       with:
-        context: ${{ inputs.container-image-context }}
+        context: $CONTEXT
         file: ${{ inputs.container-image-file }}
         push: ${{ inputs.push-container-image }}
         sbom: true

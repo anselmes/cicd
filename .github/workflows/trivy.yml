@@ -1,8 +1,10 @@
-# checkov:skip=CKV2_GHA_1:Ensure top-level permissions are not set to write-all
 name: Trivy
 
 on:
   - workflow_call
+
+permissions:
+  contents: read
 
 jobs:
   scan:
