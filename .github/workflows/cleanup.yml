@@ -1,5 +1,7 @@
-# checkov:skip=CKV2_GHA_1:Ensure top-level permissions are not set to write-all
 name: Cleanup OnDemand
+
+permissions:
+  contents: read
 
 on:
   pull_request:
