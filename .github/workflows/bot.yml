@@ -13,6 +13,11 @@ jobs:
       pull-requests: write
       repository-projects: write
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        with:
+          egress-policy: audit
+
       - name: Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@08eff52bf64351f401fb50d4972fa95b9f2c2d1b # v2.4.0 https://github.com/dependabot/fetch-metadata/commit/08eff52bf64351f401fb50d4972fa95b9f2c2d1b

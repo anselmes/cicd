@@ -1,6 +1,7 @@
 #!/bin/bash
+
+# SPDX-License-Identifier: GPL-3.0
 # Copyright (c) 2025 Schubert Anselme <schubert@anselm.es>
-# SPDX-Licence-Identifier: GPL-3.0
 
 gh extension install actions/gh-actions-cache
 
