@@ -14,7 +14,7 @@ jobs:
   bot:
     uses: ./.github/workflows/bot.yml
     permissions:
-      contents: read
+      contents: write
       issues: write
       pull-requests: write
       repository-projects: write
