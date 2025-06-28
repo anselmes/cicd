@@ -32,7 +32,7 @@ jobs:
           egress-policy: audit
 
       - name: Cleanup stale issues and PRs
-        uses: actions/stale@5bef64f19d7facfb25b37b414482c7164d639639 #  v9.1.0 https://github.com/actions/stale/commit/5bef64f19d7facfb25b37b414482c7164d639639
+        uses: actions/stale@5bef64f19d7facfb25b37b414482c7164d639639 #  v9.1.0
         with:
           any-of-labels: needs-more-info,needs-demo
           days-before-close: 5
@@ -51,13 +51,17 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Harden the runner (Audit all outbound calls)
+      - name: Harden the runner
         uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
 
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2 https://github.com/actions/checkout/commit/11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
           persist-credentials: false

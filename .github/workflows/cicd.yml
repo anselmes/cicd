@@ -14,6 +14,7 @@ jobs:
   bot:
     uses: ./.github/workflows/bot.yml
     permissions:
+      contents: read
       issues: write
       pull-requests: write
       repository-projects: write
@@ -28,9 +29,12 @@ jobs:
   scorecard:
     uses: ./.github/workflows/scorecard.yml
     permissions:
+      contents: read
       id-token: write
       security-events: write
 
   # TODO: #17 Enable SonarQube Scan
   # sonarqube:
   #   uses: ./.github/workflows/sonarqube.yml
+  # permissions:
+  #   contents: read
