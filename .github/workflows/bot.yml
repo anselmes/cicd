@@ -1,3 +1,5 @@
+# TODO: #21 raise issue on failure for job
+# TODO: #22 update issue on job run failure
 name: Bot Workflow
 
 on:
@@ -9,7 +11,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
     permissions:
       issues: write
       pull-requests: write
@@ -20,7 +22,7 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443
+            api.github.com:443    # GitHub API
 
       - name: Dependabot metadata
         id: metadata
@@ -44,7 +46,7 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
 
       - name: Enable auto-merge for Dependabot PRs
-        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
         shell: bash
         run: gh pr merge --auto --merge "$PR_URL"
         env:
@@ -70,6 +72,3 @@ jobs:
           draft: false
           prerelease: ${{ contains(github.ref, '-') }}
           tag_name: ${{ github.ref_name }}
-
-  # TODO: #21 raise issue on failure for job
-  # TODO: #22 update issue on job run failure

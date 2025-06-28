@@ -19,9 +19,12 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443
-            check.trivy.dev:443
-            github.com:443
+            api.github.com:443      # GitHub API
+            check.trivy.dev:443     # Trivy Check API
+            dl.aquasec.com:443      # Aqua Security download
+            ghcr.io:443             # GitHub Container Registry
+            github.com:443          # GitHub main site
+            mirror.gcr.io:443       # Google Container Registry mirror
 
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -41,13 +44,13 @@ jobs:
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@9b02dc2f60288b463e7a66e39c78829b62780db7 # v2.22.1
-        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           sarif_file: trivy-results.sarif
 
       - name: Run Trivy SBOM and submit results to Dependency Graph
         uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # v0.31.0
-        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           format: github
           github-pat: ${{ github.token }}

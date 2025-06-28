@@ -16,7 +16,7 @@ on:
 jobs:
   analysis:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: github.ref == 'refs/heads/main'
     permissions:
       id-token: write
       security-events: write
@@ -26,16 +26,16 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.deps.dev:443
-            api.github.com:443
-            api.osv.dev:443
-            api.scorecard.dev:443
-            fulcio.sigstore.dev:443
-            github.com:443
-            oss-fuzz-build-logs.storage.googleapis.com:443
-            rekor.sigstore.dev:443
-            tuf-repo-cdn.sigstore.dev:443
-            www.bestpractices.dev:443
+            api.deps.dev:443                                  # Dependency Track API
+            api.github.com:443                                # GitHub API
+            api.osv.dev:443                                   # OSV API
+            api.scorecard.dev:443                             # Scorecard API
+            fulcio.sigstore.dev:443                           # Fulcio CA
+            github.com:443                                    # GitHub main site
+            oss-fuzz-build-logs.storage.googleapis.com:443    # OSS-Fuzz build logs
+            rekor.sigstore.dev:443                            # Rekor transparency log
+            tuf-repo-cdn.sigstore.dev:443                     # Sigstore TUF repository CDN
+            www.bestpractices.dev:443                         # Best Practices badge
 
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7

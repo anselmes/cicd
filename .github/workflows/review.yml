@@ -27,10 +27,10 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443
-            api0.prismacloud.io:443
-            github.com:443
-            pypi.org:443
+            api.github.com:443        # GitHub API
+            api0.prismacloud.io:443   # Prisma Cloud API
+            github.com:443            # GitHub main site
+            pypi.org:443              # PyPI main site
 
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
@@ -45,9 +45,9 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_BASH: false
-          VALIDATE_DOCKERFILE_HADOLINT: false # FIXME: #18 superlinter not using .hadolint.yaml
-          VALIDATE_KUBERNETES_KUBECONFORM: false # FIXME: #19 enable kubeconform
-          VALIDATE_YAML_PRETTIER: false # FIXME: #20 ignore symlink
+          VALIDATE_DOCKERFILE_HADOLINT: false     # FIXME: #18 superlinter not using .hadolint.yaml
+          VALIDATE_KUBERNETES_KUBECONFORM: false  # FIXME: #19 enable kubeconform
+          VALIDATE_YAML_PRETTIER: false           # FIXME: #20 ignore symlink
 
       # FIXME: #24 github_conf/branch_protection_rules.json -:-  fmt  Incorrect formatting, autoformat by running 'trunk fmt'
       # - name: Trunk Check
@@ -63,9 +63,9 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.gitguardian.com:443
-            api.github.com:443
-            github.com:443
+            api.gitguardian.com:443   # GitGuardian API
+            api.github.com:443        # GitHub API
+            github.com:443            # GitHub main site
 
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
@@ -105,8 +105,8 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443
-            github.com:443
+            api.github.com:443    # GitHub API
+            github.com:443        # GitHub main site
 
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
@@ -121,11 +121,11 @@ jobs:
       - name: Dependency Review
         uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9 # v4.7.1
         with:
-          allow-ghsas: none
-          allow-licenses: Apache-2.0,BSD-2-Clause,BSD-3-Clause,CC0-1.0,GPL-2.0,GPL-3.0,ISC,MIT,LGPL-3.0
           # deny-packages: empty
           # retry-on-snapshot-warnings-timeout: 120
           # retry-on-snapshot-warnings: true
+          allow-ghsas: none
+          allow-licenses: Apache-2.0,BSD-2-Clause,BSD-3-Clause,CC0-1.0,GPL-2.0,GPL-3.0,ISC,MIT,LGPL-3.0
           fail-on-severity: low
 
   assign:
@@ -140,8 +140,8 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443
-            github.com:443
+            api.github.com:443    # GitHub API
+            github.com:443        # GitHub main site
 
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
