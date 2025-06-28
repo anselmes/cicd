@@ -9,7 +9,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
     permissions:
       issues: write
       pull-requests: write
@@ -42,12 +42,30 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
 
       - name: Enable auto-merge for Dependabot PRs
-        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
         shell: bash
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           GITHUB_TOKEN: ${{ github.token }}
           PR_URL: ${{ github.event.pull_request.html_url }}
 
-  # TODO: #21 raise issue on failure for cron job
+  releaser:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/tags/' && github.event_name == 'push'
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        with:
+          egress-policy: audit
+
+      - name: Publish GitHub release
+        if: github.ref == 'refs/tags/'
+        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
+        with:
+          draft: false
+          files: ${{ github.event.release.assets.*.name }}
+          prerelease: ${{ contains(github.ref, '-') }}
+          tag_name: ${{ github.ref_name }}
+
+  # TODO: #21 raise issue on failure for job
   # TODO: #22 update issue on job run failure
