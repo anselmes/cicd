@@ -14,8 +14,6 @@ on:
         default: ${{ github.ref }}
   workflow_dispatch: {}
 
-permissions: read-all
-
 jobs:
   stale:
     runs-on: ubuntu-latest

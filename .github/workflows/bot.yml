@@ -3,15 +3,14 @@ name: Bot Workflow
 on:
   - workflow_call
 
-permissions:
-  issues: write
-  pull-requests: write
-  repository-projects: write
-
 jobs:
   dependabot:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    permissions:
+      issues: write
+      pull-requests: write
+      repository-projects: write
     steps:
       - name: Dependabot metadata
         id: metadata
