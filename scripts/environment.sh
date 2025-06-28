@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SPDX-Licence-Identifier: GPL-3.0
+# SPDX-License-Identifier: GPL-3.0
 # Copyright (c) 2025 Schubert Anselme <schubert@anselm.es>
 
 # Export environment variables
