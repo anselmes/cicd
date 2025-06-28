@@ -10,15 +10,12 @@ on:
         type: boolean
         description: Whether to publish results to OpenSSF REST API
 
-permissions: read-all
-
 jobs:
   analysis:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
     permissions:
       id-token: write
-      models: read
       security-events: write
     steps:
       - name: Checkout code
