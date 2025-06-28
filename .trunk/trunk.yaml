@@ -18,6 +18,7 @@ runtimes:
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
+    - pre-commit-hooks@5.0.0
     - osv-scanner@2.0.3
     - gitleaks@8.27.2
     - semgrep@1.127.1

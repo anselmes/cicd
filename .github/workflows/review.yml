@@ -22,6 +22,11 @@ jobs:
       checks: write
       contents: read
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
         with:
@@ -48,6 +53,11 @@ jobs:
   scanning:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
         with:
@@ -80,6 +90,11 @@ jobs:
       - lint
       - scanning
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
         with:
@@ -107,6 +122,11 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
         with:
