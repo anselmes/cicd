@@ -1,14 +1,30 @@
+---
+# Pre-commit Configuration
+# This file configures pre-commit hooks to automatically run code quality checks
+# before commits are made to the repository.
+# See: https://pre-commit.com/
+
+# List of repositories containing pre-commit hooks
 repos:
+  # Gitleaks - Secret Detection
+  # Scans for secrets, passwords, and sensitive information in code
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.16.3
+    rev: v8.16.3 # Version of gitleaks to use
     hooks:
-      - id: gitleaks
+      - id: gitleaks # Hook ID for secret detection
+
+  # JumanjIhouse Pre-commit Hooks Collection
+  # Collection of useful pre-commit hooks for various languages and tools
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 3.0.0
+    rev: 3.0.0 # Version of the hook collection
     hooks:
-      - id: shellcheck
+      - id: RuboCop # Ruby static code analyzer and formatter
+      - id: shellcheck # Shell script static analysis tool
+
+  # Official Pre-commit Hooks
+  # Standard collection of pre-commit hooks for common file operations
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.4.0 # Version of the official hooks
     hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
+      - id: end-of-file-fixer # Ensures files end with a newline
+      - id: trailing-whitespace # Removes trailing whitespace from lines

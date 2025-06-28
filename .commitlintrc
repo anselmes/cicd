@@ -3,6 +3,11 @@
     "@commitlint/config-conventional"
   ],
   "rules": {
+    "body-max-line-length": [
+      1,
+      "always",
+      150
+    ],
     "subject-case": [
       1,
       "always",
@@ -15,7 +20,6 @@
         "build",
         "chore",
         "ci",
-        "clos",
         "deployment",
         "devcontainer",
         "docs",
@@ -27,7 +31,8 @@
         "revert",
         "security",
         "site",
-        "test"
+        "test",
+        "workspace"
       ]
     ]
   }
