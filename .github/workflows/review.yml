@@ -22,19 +22,24 @@ jobs:
       checks: write
       contents: read
     steps:
-      - name: Harden the runner (Audit all outbound calls)
+      - name: Harden Runner
         uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            api0.prismacloud.io:443
+            github.com:443
+            pypi.org:443
 
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Lint Code Base
-        uses: github/super-linter@12150456a73e248bdc94d0794898f94e23127c88 # v7.4.0 https://github.com/super-linter/super-linter/commit/12150456a73e248bdc94d0794898f94e23127c88
+        uses: github/super-linter@12150456a73e248bdc94d0794898f94e23127c88 # v7.4.0
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ github.token }}
@@ -46,26 +51,30 @@ jobs:
 
       # FIXME: #24 github_conf/branch_protection_rules.json -:-  fmt  Incorrect formatting, autoformat by running 'trunk fmt'
       # - name: Trunk Check
-      #   uses: trunk-io/trunk-action@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4 https://github.com/trunk-io/trunk-action/commit/75699af9e26881e564e9d832ef7dc3af25ec031b
+      #   uses: trunk-io/trunk-action@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4
       #   with:
       #     post-annotations: true
 
   scanning:
     runs-on: ubuntu-latest
     steps:
-      - name: Harden the runner (Audit all outbound calls)
+      - name: Harden Runner
         uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            api.gitguardian.com:443
+            api.github.com:443
+            github.com:443
 
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: GitGuardian Scan
-        uses: GitGuardian/ggshield-action@d0d08872632cd1686ef9ffcaada2c8e9fcd7a541 # v1.41.0 https://github.com/GitGuardian/ggshield-action/commit/d0d08872632cd1686ef9ffcaada2c8e9fcd7a541
+        uses: GitGuardian/ggshield-action@d0d08872632cd1686ef9ffcaada2c8e9fcd7a541 # v1.41.0
         env:
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
           GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
@@ -76,7 +85,7 @@ jobs:
       # TODO: #17 Enable SonarQube Scan
       # - name: SonarQube Scan
       # trunk-ignore(semgrep/generic.secrets.security.detected-sonarqube-docs-api-key.detected-sonarqube-docs-api-key)
-      #   uses: sonarsource/sonarqube-scan-action@2500896589ef8f7247069a56136f8dc177c27ccf # v5.2.0 https://github.com/SonarSource/sonarqube-scan-action/commit/2500896589ef8f7247069a56136f8dc177c27ccf
+      #   uses: sonarsource/sonarqube-scan-action@2500896589ef8f7247069a56136f8dc177c27ccf # v5.2.0
       #   env:
       #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -91,23 +100,26 @@ jobs:
       - lint
       - scanning
     steps:
-      - name: Harden the runner (Audit all outbound calls)
+      - name: Harden Runner
         uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
 
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
         with:
           fetch-depth: 0
           persist-credentials: false
 
       # FIXME: #16 HttpError: You do not have permission to create labels on this repository.
       # - name: Labeler
-      #   uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0 https://github.com/actions/labeler/commit/8558fd74291d67161a8a78ce36a881fa63b766a9
+      #   uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0
 
       - name: Dependency Review
-        uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9 # v4.7.1 https://github.com/actions/dependency-review-action/commit/da24556b548a50705dd671f47852072ea4c105d9
+        uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9 # v4.7.1
         with:
           allow-ghsas: none
           allow-licenses: Apache-2.0,BSD-2-Clause,BSD-3-Clause,CC0-1.0,GPL-2.0,GPL-3.0,ISC,MIT,LGPL-3.0
@@ -123,16 +135,19 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - name: Harden the runner (Audit all outbound calls)
+      - name: Harden Runner
         uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
 
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7  https://github.com/actions/checkout/commit/692973e3d937129bcbf40652eb9f2f61becf3332
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Auto-assign
-        uses: kentaro-m/auto-assign-action@f4648c0a9fdb753479e9e75fc251f507ce17bb7e # v2.0.0 https://github.com/kentaro-m/auto-assign-action/commit/f4648c0a9fdb753479e9e75fc251f507ce17bb7e
+        uses: kentaro-m/auto-assign-action@f4648c0a9fdb753479e9e75fc251f507ce17bb7e # v2.0.0
