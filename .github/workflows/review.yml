@@ -129,26 +129,26 @@ jobs:
           allow-licenses: Apache-2.0,BSD-2-Clause,BSD-3-Clause,CC0-1.0,GPL-2.0,GPL-3.0,ISC,MIT,LGPL-3.0
           fail-on-severity: low
 
-  assign:
-    runs-on: ubuntu-latest
-    needs: review
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
-        with:
-          egress-policy: block
-          allowed-endpoints: >
-            api.github.com:443    # GitHub API
-            github.com:443        # GitHub main site
+  # assign:
+  #   runs-on: ubuntu-latest
+  #   needs: review
+  #   permissions:
+  #     contents: read
+  #     pull-requests: write
+  #   steps:
+  #     - name: Harden Runner
+  #       uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+  #       with:
+  #         egress-policy: block
+  #         allowed-endpoints: >
+  #           api.github.com:443    # GitHub API
+  #           github.com:443        # GitHub main site
 
-      - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
+  #     - name: Checkout code
+  #       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+  #       with:
+  #         fetch-depth: 0
+  #         persist-credentials: false
 
-      - name: Auto-assign
-        uses: kentaro-m/auto-assign-action@f4648c0a9fdb753479e9e75fc251f507ce17bb7e # v2.0.0
+  #     - name: Auto-assign
+  #       uses: kentaro-m/auto-assign-action@f4648c0a9fdb753479e9e75fc251f507ce17bb7e # v2.0.0
