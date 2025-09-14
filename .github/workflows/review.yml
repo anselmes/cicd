@@ -49,6 +49,7 @@ jobs:
           VALIDATE_KUBERNETES_KUBECONFORM: false  # FIXME: #19 enable kubeconform
           VALIDATE_YAML_PRETTIER: false           # FIXME: #20 ignore symlink
           VALIDATE_MARKDOWN_PRETTIER: false       # FIXME: #35 ignore markdown prettier
+          VALIDATE_GIT_COMMITLINT: false          # FIXME: #37 git commit lint
 
       # FIXME: #24 github_conf/branch_protection_rules.json -:-  fmt  Incorrect formatting, autoformat by running 'trunk fmt'
       # - name: Trunk Check
