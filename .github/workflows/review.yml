@@ -48,6 +48,7 @@ jobs:
           VALIDATE_DOCKERFILE_HADOLINT: false     # FIXME: #18 superlinter not using .hadolint.yaml
           VALIDATE_KUBERNETES_KUBECONFORM: false  # FIXME: #19 enable kubeconform
           VALIDATE_YAML_PRETTIER: false           # FIXME: #20 ignore symlink
+          VALIDATE_MARKDOWN_PRETTIER: false       # FIXME: #35 ignore markdown prettier
 
       # FIXME: #24 github_conf/branch_protection_rules.json -:-  fmt  Incorrect formatting, autoformat by running 'trunk fmt'
       # - name: Trunk Check
