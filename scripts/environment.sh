@@ -25,4 +25,4 @@ export PATH="${KREW_ROOT}/bin:${CARGO_HOME}/bin:${GOPATH}:${TOOLS}${PATH:+:${PAT
 eval "$(ssh-agent -s)"
 ssh-add -l >>/dev/null
 exit_code=$?
-[[ ! ${exit_code} -eq 0 ]] && ssh-add -k
+[[ ${exit_code} -ne 0 ]] && ssh-add -k

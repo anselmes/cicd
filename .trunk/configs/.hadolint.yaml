@@ -1,4 +1,4 @@
 ignored:
   - DL3006
-  - DL3008 # FIXME: to be removed
+  - DL3008
   - SC3054

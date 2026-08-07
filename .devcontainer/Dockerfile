@@ -23,6 +23,10 @@ apt-get install -y --no-install-recommends \
   vim \
   zsh
 
+groupmod -g 1000 ubuntu
+usermod -u 1000 -g 1000 ubuntu
+chown -R 1000:1000 /home/ubuntu
+
 chsh -s "$(command -v zsh)" "ubuntu"
 
 echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >/etc/sudoers.d/ubuntu
@@ -38,5 +42,5 @@ EOF
 
 HEALTHCHECK NONE
 
-USER ubuntu
+USER 1000:1000
 CMD ["/bin/bash"]
