@@ -53,7 +53,7 @@ workflows:
     '.github/workflows/trivy.yml':
         - 'actions/checkout@v7.0.1'
         - 'aquasecurity/trivy-action@v0.33.1'
-        - 'github/codeql-action@main'
+        - 'github/codeql-action@v4'
         - 'step-security/harden-runner@v2.20.1'
 dependencies:
     'actions-rust-lang/setup-rust-toolchain@fb51252c7ba57d633bc668f941da052e410add48':
@@ -200,6 +200,11 @@ dependencies:
     'github/codeql-action@main':
         ref: 'main'
         commit: 'sha1-f0489abddd4e5e9dff53ed28a45b1d6f88978a1b'
+        owner_id: 9919
+        repo_id: 259445878
+    'github/codeql-action@v4':
+        ref: 'v4'
+        commit: 'sha1-5595ccaf912efad79be6eef63a5619ff05969be3'
         owner_id: 9919
         repo_id: 259445878
     'helm/chart-testing-action@0d28d3144d3a25ea2cc349d6e59901c4ff469b3b':
