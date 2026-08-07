@@ -1,0 +1,68 @@
+name: Continuos Integration
+
+on:
+  - push
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443                          # GitHub API
+            api0.prismacloud.io:443                     # Prisma Cloud API
+            codeload.github.com:443                     # Action/source tarballs
+            ghcr.io:443                                 # GHCR (super-linter image)
+            github.com:443                              # GitHub main site
+            objects.githubusercontent.com:443           # GitHub asset storage
+            pipelines.actions.githubusercontent.com:443 # GitHub Actions service
+            pypi.org:443                                # PyPI main site
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Lint Code Base
+        uses: super-linter/super-linter@4ce20838b8ab83717e78138c5b3a1407148e0918 # v8.7.0
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Trunk Check
+        uses: trunk-io/trunk-action@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4
+        with:
+          post-annotations: true
+
+  bot:
+    uses: ./.github/workflows/bot.yml
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      repository-projects: write
+
+  trivy:
+    uses: ./.github/workflows/trivy.yml
+    permissions:
+      contents: write
+      id-token: write
+      security-events: write
+
+  scorecard:
+    uses: ./.github/workflows/scorecard.yml
+    permissions:
+      contents: read
+      id-token: write
+      security-events: write
