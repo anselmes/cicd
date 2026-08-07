@@ -32,6 +32,8 @@ jobs:
         uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
       - name: Cleanup stale issues and PRs
         uses: actions/stale@v11.0.0
         with:
