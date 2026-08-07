@@ -7,8 +7,6 @@ repo:
 github-actions:
   - changed-files:
       - any-glob-to-any-file:
-          - .github/actions/*
-          - .github/actions/*/**
           - .github/auto_assign.yml
           - .github/auto_assign.yml/**
           - .github/dependabot.yml
@@ -25,8 +23,8 @@ devcontainer:
           - .devcontainer/*/**
           - .devcontainer/devcontainer.json
           - .devcontainer/devcontainer.json/**
-          - docker-compose.yml
-          - docker-compose.yml/**
+          - compose.yml
+          - compose.yml/**
 
 # Add 'scripting' label to any changes in the 'scripts' directory
 scripting:

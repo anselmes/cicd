@@ -3,9 +3,7 @@
   "service": "cicd",
   "workspaceFolder": "/home/ubuntu/workspace",
   "postCreateCommand": "${containerWorkspaceFolder}/scripts/configure.sh",
-  "dockerComposeFile": [
-    "${localWorkspaceFolder}/.devcontainer/compose-dev.yaml"
-  ],
+  "dockerComposeFile": ["${localWorkspaceFolder}/.devcontainer/compose.yaml"],
   "customizations": {
     "vscode": {
       "extensions": [

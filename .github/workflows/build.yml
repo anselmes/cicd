@@ -1,0 +1,143 @@
+# This workflow is managed by gh actions-lock.
+
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        type: string
+        description: Language toolchain to build with (go | rust | swift)
+        required: true
+      name:
+        type: string
+        description: Binary/package name
+        required: true
+      identifier:
+        type: string
+        description: Reverse-DNS package identifier for pkgbuild (e.g. com.example.mytool)
+        required: true
+      context:
+        type: string
+        description: Directory containing the project (default is current directory)
+        required: false
+        default: .
+      arch:
+        type: string
+        description: Architecture to build for (valid values depend on target; unset builds the runner's native arch)
+        required: false
+      go-package:
+        type: string
+        description: Package path to build (go target only)
+        required: false
+        default: ./pkg/cmd
+      version-symbol:
+        type: string
+        description: Go symbol path to stamp with the plugin version via -ldflags -X (go target only)
+        required: false
+      installer-output:
+        type: string
+        description: Path to the output .pkg, relative to context
+        required: false
+      needs-signing:
+        type: boolean
+        description: Whether to import a Developer ID certificate and notarization key before building
+        required: false
+        default: false
+      runner:
+        type: string
+        description: Runner to build on (codesign/pkgbuild/notarytool require macOS)
+        required: false
+        default: macos-15
+      artifact-name:
+        type: string
+        description: Name for the uploaded GitHub Actions artifact
+        required: true
+    secrets:
+      developer-name:
+        description: Developer ID identity name for codesign/pkgbuild/productbuild
+        required: false
+      developer-id:
+        description: Developer ID team/account identifier
+        required: false
+      apple-cert-p12-base64:
+        description: Base64-encoded Developer ID certificate (.p12)
+        required: false
+      apple-cert-password:
+        description: Password for the .p12 certificate
+        required: false
+      apple-api-key-p8-base64:
+        description: Base64-encoded App Store Connect API key (.p8)
+        required: false
+      apple-api-key-id:
+        description: App Store Connect API key ID
+        required: false
+      apple-api-issuer-id:
+        description: App Store Connect API issuer ID
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ${{ inputs.runner }}
+    permissions:
+      contents: read
+    env:
+      # secrets can't be referenced directly in step `if:` conditions, so route
+      # the presence check through a job-level env var.
+      HAS_APPLE_CERT: ${{ secrets['apple-cert-p12-base64'] != '' && secrets['apple-cert-password'] != '' && secrets['apple-api-key-p8-base64'] != '' }}
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.20.1
+        with:
+          egress-policy: audit
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Import signing certificate and notarization key
+        uses: anselmes/clact/macos/signing/setup@v0.1.2
+        id: signing-setup
+        # Skip when the Developer ID secrets aren't configured rather than failing
+        # on an empty cert import — build/binary already falls back to an ad-hoc
+        # signed, non-notarized build when developer-name/developer-id are unset.
+        if: inputs['needs-signing'] && env.HAS_APPLE_CERT == 'true'
+        with:
+          api-key-p8-base64: ${{ secrets.apple-api-key-p8-base64 }}
+          cert-p12-base64: ${{ secrets.apple-cert-p12-base64 }}
+          cert-password: ${{ secrets.apple-cert-password }}
+      - name: Build binary
+        uses: anselmes/clact/build/binary@v0.1.2
+        id: build
+        timeout-minutes: 30
+        with:
+          apple-api-issuer-id: ${{ secrets.apple-api-issuer-id }}
+          apple-api-key-id: ${{ secrets.apple-api-key-id }}
+          apple-api-key-path: ${{ steps['signing-setup'].outputs['api-key-path'] }}
+          arch: ${{ inputs.arch }}
+          context: ${{ inputs.context }}
+          developer-id: ${{ secrets.developer-id }}
+          developer-name: ${{ secrets.developer-name }}
+          go-package: ${{ inputs.go-package }}
+          identifier: ${{ inputs.identifier }}
+          installer-output: ${{ inputs.installer-output }}
+          name: ${{ inputs.name }}
+          target: ${{ inputs.target }}
+          version-symbol: ${{ inputs.version-symbol }}
+      - name: Clean up ephemeral keychain and API key
+        uses: anselmes/clact/macos/signing/cleanup@v0.1.2
+        if: always() && inputs['needs-signing'] && env.HAS_APPLE_CERT == 'true'
+        with:
+          api-key-path: ${{ steps.signing-setup.outputs.api-key-path }}
+          keychain-path: ${{ steps.signing-setup.outputs.keychain-path }}
+          previous-default-keychain: ${{ steps.signing-setup.outputs.previous-default-keychain }}
+          previous-keychains: ${{ steps.signing-setup.outputs.previous-keychains }}
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          if-no-files-found: error
+          name: ${{ inputs['artifact-name'] }}
+          path: ${{ inputs.context }}/${{ steps.build.outputs['installer-path'] }}

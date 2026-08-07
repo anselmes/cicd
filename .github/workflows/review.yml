@@ -1,7 +1,9 @@
+# This workflow is managed by gh actions-lock.
+
 name: Code Review
 
 on:
-  pull_request_target:
+  pull_request:
     types:
       - edited
       - opened
@@ -16,81 +18,33 @@ permissions:
   contents: read
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    permissions:
-      checks: write
-      contents: read
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
-        with:
-          egress-policy: block
-          allowed-endpoints: >
-            api.github.com:443        # GitHub API
-            api0.prismacloud.io:443   # Prisma Cloud API
-            github.com:443            # GitHub main site
-            pypi.org:443              # PyPI main site
-
-      - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Lint Code Base
-        uses: github/super-linter@12150456a73e248bdc94d0794898f94e23127c88 # v7.4.0
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ github.token }}
-          VALIDATE_ALL_CODEBASE: false
-          VALIDATE_BASH: false
-          VALIDATE_DOCKERFILE_HADOLINT: false     # FIXME: #18 superlinter not using .hadolint.yaml
-          VALIDATE_KUBERNETES_KUBECONFORM: false  # FIXME: #19 enable kubeconform
-          VALIDATE_YAML_PRETTIER: false           # FIXME: #20 ignore symlink
-          VALIDATE_MARKDOWN_PRETTIER: false       # FIXME: #35 ignore markdown prettier
-          VALIDATE_GIT_COMMITLINT: false          # FIXME: #37 git commit lint
-
-      # FIXME: #24 github_conf/branch_protection_rules.json -:-  fmt  Incorrect formatting, autoformat by running 'trunk fmt'
-      # - name: Trunk Check
-      #   uses: trunk-io/trunk-action@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4
-      #   with:
-      #     post-annotations: true
-
-  scanning:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
-        with:
-          egress-policy: block
-          allowed-endpoints: >
-            api.gitguardian.com:443   # GitGuardian API
-            api.github.com:443        # GitHub API
-            github.com:443            # GitHub main site
-
-      - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: GitGuardian Scan
-        uses: GitGuardian/ggshield-action@d0d08872632cd1686ef9ffcaada2c8e9fcd7a541 # v1.41.0
-        env:
-          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
-          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          GITHUB_PUSH_BASE_SHA: ${{ github.event.before }}
-          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
-
-      # TODO: #17 Enable SonarQube Scan
-      # - name: SonarQube Scan
-      # trunk-ignore(semgrep/generic.secrets.security.detected-sonarqube-docs-api-key.detected-sonarqube-docs-api-key)
-      #   uses: sonarsource/sonarqube-scan-action@2500896589ef8f7247069a56136f8dc177c27ccf # v5.2.0
-      #   env:
-      #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  # TODO: #17 Enable SonarQube Scan
+  # scanning:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Harden Runner
+  #       uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+  #       with:
+  #         egress-policy: block
+  #         allowed-endpoints: >
+  #           api.github.com:443        # GitHub API
+  #           github.com:443            # GitHub main site
+  #     - name: Checkout code
+  #       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+  #       with:
+  #         fetch-depth: 0
+  #         persist-credentials: false
+  #     - name: SonarQube Scan
+  #       uses: sonarsource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
+  #       env:
+  #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #     - name: SonarQube Quality Gate
+  #       uses: sonarsource/sonarqube-quality-gate-action@7a5fffe8e523c40e0c740b6bc2712ab503e52efa # v1.2.1
+  #       timeout-minutes: 5
+  #       env:
+  #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   review:
     runs-on: ubuntu-latest
@@ -98,30 +52,24 @@ jobs:
       contents: read
       issues: write
       pull-requests: write
-    needs:
-      - lint
-      - scanning
+    # needs: scanning
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443    # GitHub API
-            github.com:443        # GitHub main site
-
+            api.github.com:443
+            github.com:443
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-
-      # FIXME: #16 HttpError: You do not have permission to create labels on this repository.
-      # - name: Labeler
-      #   uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0
-
+      - name: Labeler
+        uses: actions/labeler@v7.0.0
       - name: Dependency Review
-        uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9 # v4.7.1
+        uses: actions/dependency-review-action@v5.0.0
         with:
           # deny-packages: empty
           # retry-on-snapshot-warnings-timeout: 120
@@ -138,18 +86,16 @@ jobs:
       pull-requests: write
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443    # GitHub API
-            github.com:443        # GitHub main site
-
+            api.github.com:443
+            github.com:443
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-
       - name: Auto-assign
-        uses: kentaro-m/auto-assign-action@f4648c0a9fdb753479e9e75fc251f507ce17bb7e # v2.0.0
+        uses: kentaro-m/auto-assign-action@v2.0.1

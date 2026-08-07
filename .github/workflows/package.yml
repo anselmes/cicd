@@ -1,0 +1,81 @@
+# This workflow is managed by gh actions-lock.
+
+name: Package
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        type: string
+        description: Package ecosystem to build (python)
+        required: true
+      name:
+        type: string
+        description: Package name
+        required: true
+      context:
+        type: string
+        description: Directory containing the project (default is current directory)
+        required: false
+        default: .
+      wheel-dir:
+        type: string
+        description: Directory to write the wheel into, relative to context (python target only)
+        required: false
+      runner:
+        type: string
+        description: Runner to build on
+        required: false
+        default: ubuntu-latest
+      artifact-name:
+        type: string
+        description: Name for the uploaded GitHub Actions artifact
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ${{ inputs.runner }}
+    permissions:
+      contents: read
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.20.1
+        with:
+          egress-policy: block
+          allowed-endpoints: |
+            api.github.com:443
+            codeload.github.com:443
+            files.pythonhosted.org:443
+            github.com:443
+            objects.githubusercontent.com:443
+            pypi.org:443
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate target
+        if: inputs.target != 'python'
+        shell: bash
+        env:
+          TARGET: ${{ inputs.target }}
+        run: |
+          echo "::error::Unsupported target '${TARGET}' (expected python)" >&2
+          exit 1
+      - name: Build Python package
+        uses: anselmes/clact/package/python@v0.1.2
+        id: build-python
+        if: inputs.target == 'python'
+        with:
+          context: ${{ inputs.context }}
+          name: ${{ inputs.name }}
+          wheel-dir: ${{ inputs['wheel-dir'] }}
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          if-no-files-found: error
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.context }}/${{ steps.build-python.outputs.wheel-dir }}/*.whl

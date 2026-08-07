@@ -1,0 +1,81 @@
+# This workflow is managed by gh actions-lock.
+
+name: Plugin
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        type: string
+        description: Plugin name (also used as the archive/dist directory name)
+        required: true
+      context:
+        type: string
+        description: Directory containing the plugin (.claude-plugin/plugin.json etc.)
+        required: false
+        default: .
+      version:
+        type: string
+        description: Version to write into plugin.json before staging (skipped when empty)
+        required: false
+      output:
+        type: string
+        description: Path to the output .plugin zip, relative to context
+        required: false
+      dist-dir:
+        type: string
+        description: Directory to copy the unzipped, staged plugin content into, relative to context
+        required: false
+      paths:
+        type: string
+        description: Space-separated list of files/directories (relative to context) to include in the bundle
+        required: false
+      runner:
+        type: string
+        description: Runner to build on
+        required: false
+        default: ubuntu-latest
+      artifact-name:
+        type: string
+        description: Name for the uploaded GitHub Actions artifact
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ${{ inputs.runner }}
+    permissions:
+      contents: read
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.20.1
+        with:
+          egress-policy: block
+          allowed-endpoints: |
+            api.github.com:443
+            codeload.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Build plugin bundle
+        uses: anselmes/clact/package/plugin@v0.1.2
+        id: build
+        with:
+          context: ${{ inputs.context }}
+          dist-dir: ${{ inputs.dist-dir }}
+          name: ${{ inputs.name }}
+          output: ${{ inputs.output }}
+          paths: ${{ inputs.paths }}
+          version: ${{ inputs.version }}
+      - name: Upload plugin artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          if-no-files-found: error
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.context }}/${{ steps.build.outputs.plugin-path }}
