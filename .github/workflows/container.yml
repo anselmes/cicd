@@ -75,12 +75,12 @@ jobs:
       - name: Build Container
         uses: anselmes/clact/build/container@v0.1.2
         with:
-          build-args: ${{ inputs.build-args }}
+          build-args: ${{ inputs['build-args'] }}
           context: ${{ inputs.context }}
           dockerfile: ${{ inputs.dockerfile }}
           platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm64,linux/riscv64' }}
           publish: ${{ inputs.publish }}
           registry_password: ${{ secrets.registry-password || secrets.GITHUB_TOKEN }}
-          registry_url: ${{ inputs.registry-url || 'ghcr.io' }}
-          registry_username: ${{ inputs.registry-username || github.actor }}
+          registry_url: ${{ inputs['registry-url'] || 'ghcr.io' }}
+          registry_username: ${{ inputs['registry-username'] || github.actor }}
           tag: ${{ inputs.tag }}

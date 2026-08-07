@@ -87,7 +87,7 @@ jobs:
     env:
       # secrets can't be referenced directly in step `if:` conditions, so route
       # the presence check through a job-level env var.
-      HAS_APPLE_CERT: ${{ secrets.apple-cert-p12-base64 != '' && secrets.apple-cert-password != '' && secrets.apple-api-key-p8-base64 != '' }}
+      HAS_APPLE_CERT: ${{ secrets['apple-cert-p12-base64'] != '' && secrets['apple-cert-password'] != '' && secrets['apple-api-key-p8-base64'] != '' }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@v2.20.1
@@ -104,7 +104,7 @@ jobs:
         # Skip when the Developer ID secrets aren't configured rather than failing
         # on an empty cert import — build/binary already falls back to an ad-hoc
         # signed, non-notarized build when developer-name/developer-id are unset.
-        if: inputs.needs-signing && env.HAS_APPLE_CERT == 'true'
+        if: inputs['needs-signing'] && env.HAS_APPLE_CERT == 'true'
         with:
           api-key-p8-base64: ${{ secrets.apple-api-key-p8-base64 }}
           cert-p12-base64: ${{ secrets.apple-cert-p12-base64 }}
@@ -116,7 +116,7 @@ jobs:
         with:
           apple-api-issuer-id: ${{ secrets.apple-api-issuer-id }}
           apple-api-key-id: ${{ secrets.apple-api-key-id }}
-          apple-api-key-path: ${{ steps.signing-setup.outputs.api-key-path }}
+          apple-api-key-path: ${{ steps['signing-setup'].outputs['api-key-path'] }}
           arch: ${{ inputs.arch }}
           context: ${{ inputs.context }}
           developer-id: ${{ secrets.developer-id }}
@@ -129,7 +129,7 @@ jobs:
           version-symbol: ${{ inputs.version-symbol }}
       - name: Clean up ephemeral keychain and API key
         uses: anselmes/clact/macos/signing/cleanup@v0.1.2
-        if: always() && inputs.needs-signing && env.HAS_APPLE_CERT == 'true'
+        if: always() && inputs['needs-signing'] && env.HAS_APPLE_CERT == 'true'
         with:
           api-key-path: ${{ steps.signing-setup.outputs.api-key-path }}
           keychain-path: ${{ steps.signing-setup.outputs.keychain-path }}
@@ -139,5 +139,5 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           if-no-files-found: error
-          name: ${{ inputs.artifact-name }}
-          path: ${{ inputs.context }}/${{ steps.build.outputs.installer-path }}
+          name: ${{ inputs['artifact-name'] }}
+          path: ${{ inputs.context }}/${{ steps.build.outputs['installer-path'] }}

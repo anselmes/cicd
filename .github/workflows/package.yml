@@ -72,7 +72,7 @@ jobs:
         with:
           context: ${{ inputs.context }}
           name: ${{ inputs.name }}
-          wheel-dir: ${{ inputs.wheel-dir }}
+          wheel-dir: ${{ inputs['wheel-dir'] }}
       - name: Upload build artifact
         uses: actions/upload-artifact@v7.0.1
         with:

@@ -60,5 +60,5 @@ jobs:
           context: ${{ inputs.context }}
           publish: ${{ inputs.publish }}
           registry_password: ${{ secrets.registry-password || secrets.GITHUB_TOKEN }}
-          registry_url: ${{ inputs.registry-url || 'ghcr.io' }}
-          registry_username: ${{ inputs.registry-username || github.actor }}
+          registry_url: ${{ inputs['registry-url'] || 'ghcr.io' }}
+          registry_username: ${{ inputs['registry-username'] || github.actor }}

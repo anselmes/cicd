@@ -50,7 +50,7 @@ jobs:
             echo "PR already approved, skipping additional approvals to minimize emails/notification noise.";
           fi
       - name: Enable auto-merge for Dependabot PRs
-        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        if: steps.metadata.outputs['update-type'] == 'version-update:semver-patch'
         shell: bash
         env:
           GITHUB_TOKEN: ${{ github.token }}
