@@ -58,6 +58,7 @@ jobs:
   trivy:
     uses: ./.github/workflows/trivy.yml
     permissions:
+      actions: read
       contents: write
       id-token: write
       security-events: write
