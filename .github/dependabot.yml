@@ -5,13 +5,21 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
+
   - # Maintain dependencies for Devcontainers
     package-ecosystem: devcontainers
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
+
   - # Maintain dependencies for Dockerfiles
     package-ecosystem: docker
     directory: /.devcontainer
     schedule:
-      interval: daily
+      interval: monthly
+    cooldown:
+      default-days: 7
