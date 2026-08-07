@@ -51,12 +51,6 @@ jobs:
           VALIDATE_MARKDOWN_PRETTIER: false       # FIXME: #35 ignore markdown prettier
           VALIDATE_GIT_COMMITLINT: false          # FIXME: #37 git commit lint
 
-      # FIXME: #24 github_conf/branch_protection_rules.json -:-  fmt  Incorrect formatting, autoformat by running 'trunk fmt'
-      # - name: Trunk Check
-      #   uses: trunk-io/trunk-action@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4
-      #   with:
-      #     post-annotations: true
-
   scanning:
     runs-on: ubuntu-latest
     steps:
