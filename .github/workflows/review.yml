@@ -98,4 +98,4 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Auto-assign
-        uses: kentaro-m/auto-assign-action@v2.0.1
+        uses: kentaro-m/auto-assign-action@v2.0.2
