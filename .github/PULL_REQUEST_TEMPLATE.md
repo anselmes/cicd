@@ -1,24 +1,26 @@
-**Problem Statement**
+# Pull Request
+
+## Problem Statement
 
 Description of the issue
 
-**Solution**
+## Solution
 
 Description of changes that solved the issue
 
-**Dependencies**
+## Dependencies
 
 Other PRs that this PR depends on being merged at the same time
 
-**Test Procedures**
+## Test Procedures
 
 How to test this PR
 
-**Before**
+## Before
 
 How this looked/responded before the PR was created
 
-**After**
+## After
 
 How this looks/responds after the PR has been applied with a link to test the PR
 
