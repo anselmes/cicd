@@ -59,8 +59,8 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443        # GitHub API
-            github.com:443            # GitHub main site
+            api.github.com:443
+            github.com:443
       - name: Checkout code
         uses: actions/checkout@v7.0.1
         with:
@@ -90,8 +90,8 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443        # GitHub API
-            github.com:443            # GitHub main site
+            api.github.com:443
+            github.com:443
       - name: Checkout code
         uses: actions/checkout@v7.0.1
         with:

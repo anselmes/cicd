@@ -23,10 +23,10 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443                  # GitHub API
-            codeload.github.com:443             # GitHub code download
-            github.com:443                      # git/http operations
-            objects.githubusercontent.com:443   # GitHub raw content
+            api.github.com:443
+            codeload.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
       - name: Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v3.1.0

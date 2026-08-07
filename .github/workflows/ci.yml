@@ -24,14 +24,14 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.github.com:443                          # GitHub API
-            api0.prismacloud.io:443                     # Prisma Cloud API
-            codeload.github.com:443                     # Action/source tarballs
-            ghcr.io:443                                 # GHCR (super-linter image)
-            github.com:443                              # GitHub main site
-            objects.githubusercontent.com:443           # GitHub asset storage
-            pipelines.actions.githubusercontent.com:443 # GitHub Actions service
-            pypi.org:443                                # PyPI main site
+            api.github.com:443
+            api0.prismacloud.io:443
+            codeload.github.com:443
+            ghcr.io:443
+            github.com:443
+            objects.githubusercontent.com:443
+            pipelines.actions.githubusercontent.com:443
+            pypi.org:443
       - name: Checkout code
         uses: actions/checkout@v7.0.1
         with:

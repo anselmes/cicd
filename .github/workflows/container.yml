@@ -62,10 +62,10 @@ jobs:
           egress-policy: block
           allowed-endpoints: |
             api.github.com:443
-            github.com:443
             codeload.github.com:443
-            objects.githubusercontent.com:443
             ghcr.io:443
+            github.com:443
+            objects.githubusercontent.com:443
             pkg-containers.githubusercontent.com:443
       - name: Checkout code
         uses: actions/checkout@v7.0.1

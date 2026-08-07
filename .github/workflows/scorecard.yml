@@ -28,16 +28,16 @@ jobs:
         with:
           egress-policy: block
           allowed-endpoints: >
-            api.deps.dev:443                                  # Dependency Track API
-            api.github.com:443                                # GitHub API
-            api.osv.dev:443                                   # OSV API
-            api.scorecard.dev:443                             # Scorecard API
-            fulcio.sigstore.dev:443                           # Fulcio CA
-            github.com:443                                    # GitHub main site
-            oss-fuzz-build-logs.storage.googleapis.com:443    # OSS-Fuzz build logs
-            rekor.sigstore.dev:443                            # Rekor transparency log
-            tuf-repo-cdn.sigstore.dev:443                     # Sigstore TUF repository CDN
-            www.bestpractices.dev:443                         # Best Practices badge
+            api.deps.dev:443
+            api.github.com:443
+            api.osv.dev:443
+            api.scorecard.dev:443
+            fulcio.sigstore.dev:443
+            github.com:443
+            oss-fuzz-build-logs.storage.googleapis.com:443
+            rekor.sigstore.dev:443
+            tuf-repo-cdn.sigstore.dev:443
+            www.bestpractices.dev:443
       - name: Checkout code
         uses: actions/checkout@v7.0.1
         with:
