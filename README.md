@@ -12,8 +12,8 @@ A reusable CI/CD toolkit providing GitHub Actions workflows, development contain
 [ossf-score-link]: https://securityscorecards.dev/viewer/?uri=github.com/anselmes/cicd
 [ci-badge]: https://github.com/anselmes/cicd/actions/workflows/ci.yml/badge.svg
 [ci-link]: https://github.com/anselmes/cicd/actions/workflows/ci.yml
-[review-badge]: https://github.com/anselmes/cicd/actions/workflows/review.yml/badge.svg
-[review-link]: https://github.com/anselmes/cicd/actions/workflows/review.yml
+[review-badge]: https://github.com/anselmes/cicd/actions/workflows/required/anselmes/cicd/.github/workflows/review.yml/badge.svg
+[review-link]: https://github.com/anselmes/cicd/actions/workflows/required/anselmes/cicd/.github/workflows/review.yml
 
 ---
 
