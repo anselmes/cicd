@@ -33,7 +33,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Run Trivy vulnerability scanner in repo mode
-        uses: aquasecurity/trivy-action@v0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           exit-code: 1
           format: sarif
@@ -47,7 +47,7 @@ jobs:
         with:
           sarif_file: trivy-results.sarif
       - name: Run Trivy SBOM and submit results to Dependency Graph
-        uses: aquasecurity/trivy-action@v0.33.1
+        uses: aquasecurity/trivy-action@v0.36.0
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           format: github
