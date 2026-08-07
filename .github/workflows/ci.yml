@@ -42,7 +42,9 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_ACTIONS_ZIZMOR_CONFIG_FILE: zizmor.yaml
+          GITHUB_ACTIONS_ZIZMOR_CONFIG_FILE: /.github/zizmor.yaml
+          BASH_FILE_NAME: /.trunk/configs/.shellcheckrc
+          DOCKERFILE_HADOLINT_FILE_NAME: /.trunk/configs/.hadolint.yaml
           VALIDATE_BIOME_FORMAT: false
           VALIDATE_SPELL_CODESPELL: false
 
