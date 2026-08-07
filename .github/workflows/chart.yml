@@ -1,0 +1,55 @@
+name: Chart
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        type: string
+        description: Context directory for the build (default is current directory)
+        required: false
+        default: .
+      registry-url:
+        type: string
+        description: Container registry to push to (default is ghcr.io)
+        required: false
+      registry-username:
+        type: string
+        description: Username for the container registry (default is the triggering actor)
+        required: false
+      publish:
+        type: boolean
+        description: Whether to package and push the chart
+        required: false
+        default: false
+    secrets:
+      registry-password:
+        description: Password for the container registry (defaults to GITHUB_TOKEN)
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        with:
+          egress-policy: block
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Build Helm Chart
+        uses: anselmes/clact/build/chart@654176f5d82a4047c504c6c9f9b083feec49fe5e # v0.1.2
+        with:
+          context: ${{ inputs.context }}
+          publish: ${{ inputs.publish }}
+          registry_password: ${{ secrets.registry-password || secrets.GITHUB_TOKEN }}
+          registry_url: ${{ inputs.registry-url || 'ghcr.io' }}
+          registry_username: ${{ inputs.registry-username || github.actor }}
