@@ -26,19 +26,19 @@ thin wrappers — hardened runner, checkout, and artifact upload — around
 composite actions in the sibling [`clact`](https://github.com/anselmes/clact)
 repository.
 
-| Workflow        | Purpose                                                          | Trigger                                                                   |
-| --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `ci.yml`        | Lints the repo and orchestrates `bot`, `trivy`, and `scorecard`  | `push`                                                                    |
-| `review.yml`    | Labels, dependency-reviews, and auto-assigns pull requests       | `pull_request`                                                            |
-| `bot.yml`       | Dependabot auto-approve/merge; publishes a release on tag push   | `workflow_call`                                                           |
-| `trivy.yml`     | Filesystem vulnerability scan and SBOM submission                | `workflow_call`                                                           |
-| `scorecard.yml` | OpenSSF Scorecard analysis                                       | `workflow_call`                                                           |
-| `cleanup.yml`   | Stale issue/PR management and Actions cache cleanup              | `pull_request` (closed), `schedule`, `workflow_call`, `workflow_dispatch` |
-| `container.yml` | Multi-platform container image build/publish                     | `workflow_call`                                                           |
-| `chart.yml`     | Helm chart build/publish                                         | `workflow_call`                                                           |
-| `build.yml`     | Go/Rust/Swift binary build, with macOS codesign/notarize support | `workflow_call`                                                           |
-| `package.yml`   | Python wheel build                                               | `workflow_call`                                                           |
-| `plugin.yml`    | Claude plugin bundle build                                       | `workflow_call`                                                           |
+| Workflow        | Purpose                                                               | Trigger                                                                   |
+| --------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `ci.yml`        | Lints the repository and orchestrates `bot`, `trivy`, and `scorecard` | `push`                                                                    |
+| `review.yml`    | Labels, dependency-reviews, and auto-assigns pull requests            | `pull_request`                                                            |
+| `bot.yml`       | Dependabot auto-approve/merge; publishes a release on tag push        | `workflow_call`                                                           |
+| `trivy.yml`     | Filesystem vulnerability scan and SBOM submission                     | `workflow_call`                                                           |
+| `scorecard.yml` | OpenSSF Scorecard analysis                                            | `workflow_call`                                                           |
+| `cleanup.yml`   | Stale issue/PR management and Actions cache cleanup                   | `pull_request` (closed), `schedule`, `workflow_call`, `workflow_dispatch` |
+| `container.yml` | Multi-platform container image build/publish                          | `workflow_call`                                                           |
+| `chart.yml`     | Helm chart build/publish                                              | `workflow_call`                                                           |
+| `build.yml`     | Go/Rust/Swift binary build, with macOS codesign/notarize support      | `workflow_call`                                                           |
+| `package.yml`   | Python wheel build                                                    | `workflow_call`                                                           |
+| `plugin.yml`    | Claude plugin bundle build                                            | `workflow_call`                                                           |
 
 ### 🔧 Development Environment
 

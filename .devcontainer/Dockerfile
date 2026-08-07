@@ -38,5 +38,5 @@ EOF
 
 HEALTHCHECK NONE
 
-USER ubuntu
+USER 1000:1000
 CMD ["/bin/bash"]
