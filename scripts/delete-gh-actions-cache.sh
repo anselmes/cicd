@@ -12,6 +12,6 @@ CACHE_KEYS="$(gh actions-cache list -R "${REPO}" -B "${BRANCH}" | cut -f 1)"
 set +e
 echo "Deleting caches for ${REPO} in ${BRANCH}..."
 for KEY in ${CACHE_KEYS}; do
-	gh actions-cache delete "${KEY}" -R "${REPO}" -B "${BRANCH}" --confirm
+  gh actions-cache delete "${KEY}" -R "${REPO}" -B "${BRANCH}" --confirm
 done
 echo "Done"

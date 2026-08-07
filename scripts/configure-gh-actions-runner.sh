@@ -16,8 +16,8 @@ mkdir actions-runner && cd actions-runner || exit
 
 # Download the latest runner package
 curl \
-	-o "actions-runner-${RUNNER_OS}-x64-${RUNNER_VERSION}.tar.gz" \
-	-L "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-${RUNNER_OS}-x64-${RUNNER_VERSION}.tar.gz"
+  -o "actions-runner-${RUNNER_OS}-x64-${RUNNER_VERSION}.tar.gz" \
+  -L "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-${RUNNER_OS}-x64-${RUNNER_VERSION}.tar.gz"
 
 # Optional: Validate the hash
 echo "${RUNNER_HASH_256}  actions-runner-${RUNNER_OS}-x64-${RUNNER_VERSION}.tar.gz" | shasum -a 256 -c
