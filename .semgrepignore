@@ -1,0 +1,6 @@
+# Action refs under .github/workflows/ are intentionally tag-pinned and
+# verified against .github/workflows/actions.lock (managed by
+# `gh actions-lock`) instead of bare commit SHAs. zizmor already covers
+# GitHub Actions security for this path (see .github/zizmor.yml), so the
+# overlapping github-actions-mutable-action-tag check is excluded here.
+.github/workflows/
