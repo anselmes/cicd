@@ -42,6 +42,7 @@ workflows:
         - 'actions/checkout@v7.0.1'
         - 'actions/dependency-review-action@v5.0.0'
         - 'actions/labeler@v7.0.0'
+        - 'amannn/action-semantic-pull-request@v6.1.1'
         - 'kentaro-m/auto-assign-action@v2.0.2'
         - 'step-security/harden-runner@v2.20.1'
     '.github/workflows/scorecard.yml':
@@ -126,6 +127,11 @@ dependencies:
         commit: 'sha1-043fb46d1a93c77aae656e7c1c64a875d1fc6a0a'
         owner_id: 44036562
         repo_id: 192625955
+    'amannn/action-semantic-pull-request@v6.1.1':
+        ref: 'v6.1.1'
+        commit: 'sha1-48f256284bd46cdaab1048c3721360e808335d50'
+        owner_id: 4038316
+        repo_id: 220418983
     'anselmes/clact@v0.1.2':
         ref: 'v0.1.2'
         commit: 'sha1-654176f5d82a4047c504c6c9f9b083feec49fe5e'

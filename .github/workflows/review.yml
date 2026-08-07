@@ -78,6 +78,42 @@ jobs:
           allow-licenses: Apache-2.0,BSD-2-Clause,BSD-3-Clause,CC0-1.0,GPL-2.0,GPL-3.0,ISC,MIT,LGPL-3.0
           fail-on-severity: low
 
+  title:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.20.1
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+      - name: Validate PR title
+        uses: amannn/action-semantic-pull-request@v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          requireScope: false
+          types: |
+            build
+            chore
+            ci
+            deployment
+            devcontainer
+            docs
+            feature
+            fix
+            issue
+            networking
+            refactor
+            revert
+            security
+            site
+            test
+            workspace
+
   assign:
     runs-on: ubuntu-latest
     needs: review
