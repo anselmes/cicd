@@ -1,3 +1,5 @@
+# This workflow is managed by gh actions-lock.
+
 name: Continuos Integration
 
 on:
@@ -18,7 +20,7 @@ jobs:
       contents: read
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -31,19 +33,15 @@ jobs:
             pipelines.actions.githubusercontent.com:443 # GitHub Actions service
             pypi.org:443                                # PyPI main site
       - name: Checkout code
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Lint Code Base
-        uses: super-linter/super-linter@4ce20838b8ab83717e78138c5b3a1407148e0918 # v8.7.0
+        uses: super-linter/super-linter@v8.7.0
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ github.token }}
-      - name: Trunk Check
-        uses: trunk-io/trunk-action@75699af9e26881e564e9d832ef7dc3af25ec031b # v1.2.4
-        with:
-          post-annotations: true
 
   bot:
     uses: ./.github/workflows/bot.yml

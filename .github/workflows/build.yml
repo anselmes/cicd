@@ -1,3 +1,5 @@
+# This workflow is managed by gh actions-lock.
+
 name: Build
 
 on:
@@ -88,16 +90,16 @@ jobs:
       HAS_APPLE_CERT: ${{ secrets.apple-cert-p12-base64 != '' && secrets.apple-cert-password != '' && secrets.apple-api-key-p8-base64 != '' }}
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
       - name: Checkout code
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Import signing certificate and notarization key
-        uses: anselmes/clact/macos/signing/setup@654176f5d82a4047c504c6c9f9b083feec49fe5e # v0.1.2
+        uses: anselmes/clact/macos/signing/setup@v0.1.2
         id: signing-setup
         # Skip when the Developer ID secrets aren't configured rather than failing
         # on an empty cert import — build/binary already falls back to an ad-hoc
@@ -108,7 +110,7 @@ jobs:
           cert-p12-base64: ${{ secrets.apple-cert-p12-base64 }}
           cert-password: ${{ secrets.apple-cert-password }}
       - name: Build binary
-        uses: anselmes/clact/build/binary@654176f5d82a4047c504c6c9f9b083feec49fe5e # v0.1.2
+        uses: anselmes/clact/build/binary@v0.1.2
         id: build
         timeout-minutes: 30
         with:
@@ -126,7 +128,7 @@ jobs:
           target: ${{ inputs.target }}
           version-symbol: ${{ inputs.version-symbol }}
       - name: Clean up ephemeral keychain and API key
-        uses: anselmes/clact/macos/signing/cleanup@654176f5d82a4047c504c6c9f9b083feec49fe5e # v0.1.2
+        uses: anselmes/clact/macos/signing/cleanup@v0.1.2
         if: always() && inputs.needs-signing && env.HAS_APPLE_CERT == 'true'
         with:
           api-key-path: ${{ steps.signing-setup.outputs.api-key-path }}
@@ -134,7 +136,7 @@ jobs:
           previous-default-keychain: ${{ steps.signing-setup.outputs.previous-default-keychain }}
           previous-keychains: ${{ steps.signing-setup.outputs.previous-keychains }}
       - name: Upload build artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@v7.0.1
         with:
           if-no-files-found: error
           name: ${{ inputs.artifact-name }}

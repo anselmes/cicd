@@ -1,3 +1,5 @@
+# This workflow is managed by gh actions-lock.
+
 name: Trivy
 
 on:
@@ -15,7 +17,7 @@ jobs:
       security-events: write
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -26,12 +28,12 @@ jobs:
             github.com:443          # GitHub main site
             mirror.gcr.io:443       # Google Container Registry mirror
       - name: Checkout code
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Run Trivy vulnerability scanner in repo mode
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # v0.33.1
+        uses: aquasecurity/trivy-action@v0.33.1
         with:
           exit-code: 1
           format: sarif
@@ -40,12 +42,12 @@ jobs:
           output: trivy-results.sarif
           scan-type: fs
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@f0489abddd4e5e9dff53ed28a45b1d6f88978a1b # zizmor: ignore[ref-version-mismatch]
+        uses: github/codeql-action/upload-sarif@main
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           sarif_file: trivy-results.sarif
       - name: Run Trivy SBOM and submit results to Dependency Graph
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # v0.33.1
+        uses: aquasecurity/trivy-action@v0.33.1
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           format: github

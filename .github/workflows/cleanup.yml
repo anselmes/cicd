@@ -1,3 +1,5 @@
+# This workflow is managed by gh actions-lock.
+
 name: Cleanup OnDemand
 
 permissions:
@@ -27,11 +29,11 @@ jobs:
       pull-requests: write
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
       - name: Cleanup stale issues and PRs
-        uses: actions/stale@4391f3da665fdf50b6810c1a66712fb9ba21aa93 #  v11.0.0
+        uses: actions/stale@v11.0.0
         with:
           any-of-labels: needs-more-info,needs-demo
           days-before-close: 5
@@ -51,7 +53,7 @@ jobs:
       contents: write
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        uses: step-security/harden-runner@v2.20.1
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -59,7 +61,7 @@ jobs:
             github.com:443                      # GitHub main site
             objects.githubusercontent.com:443   # GitHub objects CDN
       - name: Checkout code
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
