@@ -26,6 +26,10 @@ on:
         type: string
         description: Architecture to build for (valid values depend on target; unset builds the runner's native arch)
         required: false
+      swift-version:
+        type: string
+        description: Swift version to install (swift target only, e.g. 6.3.3, main-snapshot); unset installs Swiftly's latest
+        required: false
       go-package:
         type: string
         description: Package path to build (go target only)
@@ -125,6 +129,7 @@ jobs:
           identifier: ${{ inputs.identifier }}
           installer-output: ${{ inputs.installer-output }}
           name: ${{ inputs.name }}
+          swift-version: ${{ inputs['swift-version'] }}
           target: ${{ inputs.target }}
           version-symbol: ${{ inputs.version-symbol }}
       - name: Clean up ephemeral keychain and API key
