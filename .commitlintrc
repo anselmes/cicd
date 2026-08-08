@@ -8,6 +8,11 @@
       "always",
       150
     ],
+    "footer-max-line-length": [
+      1,
+      "always",
+      150
+    ],
     "subject-case": [
       1,
       "always",
