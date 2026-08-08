@@ -23,24 +23,24 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Harden Runner
-  #       uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+  #       uses: step-security/harden-runner@v2.20.1
   #       with:
   #         egress-policy: block
   #         allowed-endpoints: >
   #           api.github.com:443
   #           github.com:443
   #     - name: Checkout code
-  #       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+  #       uses: actions/checkout@v7.0.1
   #       with:
   #         fetch-depth: 0
   #         persist-credentials: false
   #     - name: SonarQube Scan
-  #       uses: sonarsource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
+  #       uses: sonarsource/sonarqube-scan-action@v8.2.1
   #       env:
   #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #     - name: SonarQube Quality Gate
-  #       uses: sonarsource/sonarqube-quality-gate-action@7a5fffe8e523c40e0c740b6bc2712ab503e52efa # v1.2.1
+  #       uses: sonarsource/sonarqube-quality-gate-action@v1.2.1
   #       timeout-minutes: 5
   #       env:
   #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -81,6 +81,7 @@ jobs:
   title:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: read
     steps:
       - name: Harden Runner
@@ -90,29 +91,23 @@ jobs:
           allowed-endpoints: >
             api.github.com:443
             github.com:443
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - name: Load commit types
+        id: commit-types
+        run: |
+          echo "types<<EOF" >> "$GITHUB_OUTPUT"
+          jq -r '.rules["type-enum"][2][]' .commitlintrc >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
       - name: Validate PR title
         uses: amannn/action-semantic-pull-request@v6.1.1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           requireScope: false
-          types: |
-            build
-            chore
-            ci
-            deployment
-            devcontainer
-            docs
-            feature
-            fix
-            issue
-            networking
-            refactor
-            revert
-            security
-            site
-            test
-            workspace
+          types: ${{ steps.commit-types.outputs.types }}
 
   assign:
     runs-on: ubuntu-latest
