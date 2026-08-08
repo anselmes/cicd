@@ -98,9 +98,11 @@ jobs:
       - name: Load commit types
         id: commit-types
         run: |
-          echo "types<<EOF" >> "$GITHUB_OUTPUT"
-          jq -r '.rules["type-enum"][2][]' .commitlintrc >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
+          {
+            echo "types<<EOF"
+            jq -r '.rules["type-enum"][2][]' .commitlintrc
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
       - name: Validate PR title
         uses: amannn/action-semantic-pull-request@v6.1.1
         env:
