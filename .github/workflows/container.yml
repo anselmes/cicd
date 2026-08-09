@@ -73,7 +73,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Build Container
-        uses: anselmes/clact/build/container@v0.1.3
+        uses: anselmes/clact/build/container@v0.1.4
         with:
           build-args: ${{ inputs['build-args'] }}
           context: ${{ inputs.context }}
