@@ -23,24 +23,24 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Harden Runner
-  #       uses: step-security/harden-runner@v2.21.1
+  #       uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
   #       with:
   #         egress-policy: block
   #         allowed-endpoints: >
   #           api.github.com:443
   #           github.com:443
   #     - name: Checkout code
-  #       uses: actions/checkout@v7.0.1
+  #       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
   #       with:
   #         fetch-depth: 0
   #         persist-credentials: false
   #     - name: SonarQube Scan
-  #       uses: sonarsource/sonarqube-scan-action@v8.2.1
+  #       uses: sonarsource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
   #       env:
   #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #     - name: SonarQube Quality Gate
-  #       uses: sonarsource/sonarqube-quality-gate-action@v1.2.1
+  #       uses: sonarsource/sonarqube-quality-gate-action@7a5fffe8e523c40e0c740b6bc2712ab503e52efa # v1.2.1
   #       timeout-minutes: 5
   #       env:
   #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -55,21 +55,21 @@ jobs:
     # needs: scanning
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2.21.1
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: block
           allowed-endpoints: >
             api.github.com:443
             github.com:443
       - name: Checkout code
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Labeler
-        uses: actions/labeler@v7.0.0
+        uses: actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13 # v7.0.0
       - name: Dependency Review
-        uses: actions/dependency-review-action@v5.0.0
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
         with:
           # deny-packages: empty
           # retry-on-snapshot-warnings-timeout: 120
@@ -85,14 +85,14 @@ jobs:
       pull-requests: read
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2.21.1
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: block
           allowed-endpoints: >
             api.github.com:443
             github.com:443
       - name: Checkout code
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           ref: ${{ github.event.pull_request.base.sha }}
@@ -105,7 +105,7 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
       - name: Validate PR title
-        uses: amannn/action-semantic-pull-request@v6.1.1
+        uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -120,16 +120,16 @@ jobs:
       pull-requests: write
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2.21.1
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: block
           allowed-endpoints: >
             api.github.com:443
             github.com:443
       - name: Checkout code
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Auto-assign
-        uses: kentaro-m/auto-assign-action@v2.0.2
+        uses: kentaro-m/auto-assign-action@0a2c53d3721e4c5cfcce6afd4014aecc337979f6 # v2.0.2
