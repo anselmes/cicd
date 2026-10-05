@@ -6,56 +6,56 @@ workflows:
     '.github/workflows/bot.yml':
         - 'actions/checkout@v7.0.1'
         - 'dependabot/fetch-metadata@v3.1.0'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/build.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/upload-artifact@v7.0.1'
         - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/chart.yml':
         - 'actions/checkout@v7.0.1'
         - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/ci.yml':
         - 'actions/checkout@v7.0.1'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
         - 'super-linter/super-linter@v8.7.0'
     '.github/workflows/cleanup.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/stale@v11.0.0'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/container.yml':
         - 'actions/checkout@v7.0.1'
         - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/package.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/upload-artifact@v7.0.1'
         - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/plugin.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/upload-artifact@v7.0.1'
         - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/review.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/dependency-review-action@v5.0.0'
         - 'actions/labeler@v7.0.0'
         - 'amannn/action-semantic-pull-request@v6.1.1'
         - 'kentaro-m/auto-assign-action@v2.0.2'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/scorecard.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/upload-artifact@v7.0.1'
-        - 'github/codeql-action@v4.37.6'
+        - 'github/codeql-action@v4.38.2'
         - 'ossf/scorecard-action@v2.4.4'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'step-security/harden-runner@v2.21.1'
     '.github/workflows/trivy.yml':
         - 'actions/checkout@v7.0.1'
         - 'aquasecurity/trivy-action@v0.36.0'
-        - 'github/codeql-action@v4.37.6'
-        - 'step-security/harden-runner@v2.20.1'
+        - 'github/codeql-action@v4.38.2'
+        - 'step-security/harden-runner@v2.21.1'
 dependencies:
     'actions-rust-lang/setup-rust-toolchain@fb51252c7ba57d633bc668f941da052e410add48':
         ref: 'v1.13.0'
@@ -208,9 +208,9 @@ dependencies:
         commit: 'sha1-29109295f81e9208d7d86ff1c6c12d2833863392'
         owner_id: 5429470
         repo_id: 288487894
-    'github/codeql-action@v4.37.6':
-        ref: 'v4.37.6'
-        commit: 'sha1-5595ccaf912efad79be6eef63a5619ff05969be3'
+    'github/codeql-action@v4.38.2':
+        ref: 'v4.38.2'
+        commit: 'sha1-2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2'
         owner_id: 9919
         repo_id: 259445878
     'helm/chart-testing-action@0d28d3144d3a25ea2cc349d6e59901c4ff469b3b':
@@ -245,9 +245,9 @@ dependencies:
         commit: 'sha1-dc72c7d5c4d10cd6bcb8cf6e3fd625a9e5e537da'
         owner_id: 71096353
         repo_id: 351211695
-    'step-security/harden-runner@v2.20.1':
-        ref: 'v2.20.1'
-        commit: 'sha1-b09bb98e06d4d774595224525879c09bc6e98c40'
+    'step-security/harden-runner@v2.21.1':
+        ref: 'v2.21.1'
+        commit: 'sha1-e14015d583714f6e62063499dc959a02595150a1'
         owner_id: 88700172
         repo_id: 422287306
     'super-linter/super-linter@v8.7.0':
