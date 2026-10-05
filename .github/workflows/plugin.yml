@@ -50,7 +50,7 @@ jobs:
       contents: read
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2.21.1
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: block
           allowed-endpoints: |
@@ -59,12 +59,12 @@ jobs:
             github.com:443
             objects.githubusercontent.com:443
       - name: Checkout code
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Build plugin bundle
-        uses: anselmes/clact/package/plugin@v0.1.4
+        uses: anselmes/clact/package/plugin@9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb # v0.1.4
         id: build
         with:
           context: ${{ inputs.context }}
@@ -74,7 +74,7 @@ jobs:
           paths: ${{ inputs.paths }}
           version: ${{ inputs.version }}
       - name: Upload plugin artifact
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           if-no-files-found: error
           name: ${{ inputs.artifact-name }}

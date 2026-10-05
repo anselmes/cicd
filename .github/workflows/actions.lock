@@ -4,58 +4,58 @@
 version: 'v0.0.2'
 workflows:
     '.github/workflows/bot.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'dependabot/fetch-metadata@v3.1.0'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/build.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'actions/upload-artifact@v7.0.1'
-        - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a'
+        - 'anselmes/clact@9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/chart.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'anselmes/clact@9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/ci.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'step-security/harden-runner@v2.21.1'
-        - 'super-linter/super-linter@v8.7.0'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
+        - 'super-linter/super-linter@4ce20838b8ab83717e78138c5b3a1407148e0918'
     '.github/workflows/cleanup.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'actions/stale@v11.0.0'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'actions/stale@4391f3da665fdf50b6810c1a66712fb9ba21aa93'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/container.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'anselmes/clact@9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/package.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'actions/upload-artifact@v7.0.1'
-        - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a'
+        - 'anselmes/clact@9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/plugin.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'actions/upload-artifact@v7.0.1'
-        - 'anselmes/clact@v0.1.4'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a'
+        - 'anselmes/clact@9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/review.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'actions/dependency-review-action@v5.0.0'
-        - 'actions/labeler@v7.0.0'
-        - 'amannn/action-semantic-pull-request@v6.1.1'
-        - 'kentaro-m/auto-assign-action@v2.0.2'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294'
+        - 'actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13'
+        - 'amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50'
+        - 'kentaro-m/auto-assign-action@0a2c53d3721e4c5cfcce6afd4014aecc337979f6'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/scorecard.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'actions/upload-artifact@v7.0.1'
-        - 'github/codeql-action@v4.38.2'
-        - 'ossf/scorecard-action@v2.4.4'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a'
+        - 'github/codeql-action@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2'
+        - 'ossf/scorecard-action@2d1146689b8cda280b9bc96326124645441f03bc'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
     '.github/workflows/trivy.yml':
-        - 'actions/checkout@v7.0.1'
-        - 'aquasecurity/trivy-action@v0.36.0'
-        - 'github/codeql-action@v4.38.2'
-        - 'step-security/harden-runner@v2.21.1'
+        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
+        - 'aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25'
+        - 'github/codeql-action@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2'
+        - 'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1'
 dependencies:
     'actions-rust-lang/setup-rust-toolchain@fb51252c7ba57d633bc668f941da052e410add48':
         ref: 'v1.13.0'
@@ -97,17 +97,17 @@ dependencies:
         commit: 'sha1-8e8c483db84b4bee98b60c0593521ed34d9990e8'
         owner_id: 44036562
         repo_id: 197814629
-    'actions/checkout@v7.0.1':
+    'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1':
         ref: 'v7.0.1'
         commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
         owner_id: 44036562
         repo_id: 197814629
-    'actions/dependency-review-action@v5.0.0':
+    'actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294':
         ref: 'v5.0.0'
         commit: 'sha1-a1d282b36b6f3519aa1f3fc636f609c47dddb294'
         owner_id: 44036562
         repo_id: 476372928
-    'actions/labeler@v7.0.0':
+    'actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13':
         ref: 'v7.0.0'
         commit: 'sha1-bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13'
         owner_id: 44036562
@@ -117,22 +117,22 @@ dependencies:
         commit: 'sha1-d35c59abb061a4a6fb18e82ac0862c26744d6ab5'
         owner_id: 44036562
         repo_id: 192624594
-    'actions/stale@v11.0.0':
+    'actions/stale@4391f3da665fdf50b6810c1a66712fb9ba21aa93':
         ref: 'v11.0.0'
         commit: 'sha1-4391f3da665fdf50b6810c1a66712fb9ba21aa93'
         owner_id: 44036562
         repo_id: 200437066
-    'actions/upload-artifact@v7.0.1':
+    'actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a':
         ref: 'v7.0.1'
         commit: 'sha1-043fb46d1a93c77aae656e7c1c64a875d1fc6a0a'
         owner_id: 44036562
         repo_id: 192625955
-    'amannn/action-semantic-pull-request@v6.1.1':
+    'amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50':
         ref: 'v6.1.1'
         commit: 'sha1-48f256284bd46cdaab1048c3721360e808335d50'
         owner_id: 4038316
         repo_id: 220418983
-    'anselmes/clact@v0.1.4':
+    'anselmes/clact@9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb':
         ref: 'v0.1.4'
         commit: 'sha1-9e2e244aeb3c9c386baeb6b224f2ec5d028a47fb'
         owner_id: 37342409
@@ -160,7 +160,7 @@ dependencies:
         uses:
             - 'actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb'
             - 'actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8'
-    'aquasecurity/trivy-action@v0.36.0':
+    'aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25':
         ref: 'v0.36.0'
         commit: 'sha1-ed142fd0673e97e23eac54620cfb913e5ce36c25'
         owner_id: 12783832
@@ -178,7 +178,7 @@ dependencies:
         commit: 'sha1-b9e51907a09c216f16ebe8536097933489208112'
         owner_id: 6844498
         repo_id: 210310251
-    'dependabot/fetch-metadata@v3.1.0':
+    'dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98':
         ref: 'v3.1.0'
         commit: 'sha1-25dd0e34f4fe68f24cc83900b1fe3fe149efef98'
         owner_id: 27347476
@@ -208,7 +208,7 @@ dependencies:
         commit: 'sha1-29109295f81e9208d7d86ff1c6c12d2833863392'
         owner_id: 5429470
         repo_id: 288487894
-    'github/codeql-action@v4.38.2':
+    'github/codeql-action@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2':
         ref: 'v4.38.2'
         commit: 'sha1-2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2'
         owner_id: 9919
@@ -225,12 +225,12 @@ dependencies:
         commit: 'sha1-a1b0e391336a6ee6713a0583f8c6240d70863de3'
         owner_id: 15859888
         repo_id: 224289715
-    'kentaro-m/auto-assign-action@v2.0.2':
+    'kentaro-m/auto-assign-action@0a2c53d3721e4c5cfcce6afd4014aecc337979f6':
         ref: 'v2.0.2'
         commit: 'sha1-0a2c53d3721e4c5cfcce6afd4014aecc337979f6'
         owner_id: 7448569
         repo_id: 212123834
-    'ossf/scorecard-action@v2.4.4':
+    'ossf/scorecard-action@2d1146689b8cda280b9bc96326124645441f03bc':
         ref: 'v2.4.4'
         commit: 'sha1-2d1146689b8cda280b9bc96326124645441f03bc'
         owner_id: 67707773
@@ -245,12 +245,12 @@ dependencies:
         commit: 'sha1-dc72c7d5c4d10cd6bcb8cf6e3fd625a9e5e537da'
         owner_id: 71096353
         repo_id: 351211695
-    'step-security/harden-runner@v2.21.1':
+    'step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1':
         ref: 'v2.21.1'
         commit: 'sha1-e14015d583714f6e62063499dc959a02595150a1'
         owner_id: 88700172
         repo_id: 422287306
-    'super-linter/super-linter@v8.7.0':
+    'super-linter/super-linter@4ce20838b8ab83717e78138c5b3a1407148e0918':
         ref: 'v8.7.0'
         commit: 'sha1-4ce20838b8ab83717e78138c5b3a1407148e0918'
         owner_id: 74564708
