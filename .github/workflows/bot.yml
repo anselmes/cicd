@@ -80,7 +80,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           TAG_NAME: ${{ github.ref_name }}
         run: |
-          args=(--notes "" --draft)
+          args=(--generate-notes --draft)
           if [[ "$TAG_NAME" == *-* ]]; then
             args+=(--prerelease)
           fi
