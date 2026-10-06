@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Lint Code Base
-        uses: super-linter/super-linter@2da136927bd4a73596db63044b504547c62cb854 # v8.7.0
+        uses: super-linter/super-linter@2da136927bd4a73596db63044b504547c62cb854 # v9.0.0
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ github.token }}
@@ -48,7 +48,7 @@ jobs:
           VALIDATE_TRIVY: "false"
 
   bot:
-    uses: ./.github/workflows/bot.yml
+    uses: $/.github/workflows/bot.yml
     permissions:
       contents: write
       issues: write
@@ -56,7 +56,7 @@ jobs:
       repository-projects: write
 
   trivy:
-    uses: ./.github/workflows/trivy.yml
+    uses: $/.github/workflows/trivy.yml
     permissions:
       actions: read
       contents: write
@@ -64,7 +64,7 @@ jobs:
       security-events: write
 
   scorecard:
-    uses: ./.github/workflows/scorecard.yml
+    uses: $/.github/workflows/scorecard.yml
     permissions:
       contents: read
       id-token: write
