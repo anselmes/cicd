@@ -42,7 +42,7 @@ jobs:
       contents: read
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@v2.21.1
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: block
           allowed-endpoints: |
@@ -53,7 +53,7 @@ jobs:
             objects.githubusercontent.com:443
             pypi.org:443
       - name: Checkout code
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -66,7 +66,7 @@ jobs:
           echo "::error::Unsupported target '${TARGET}' (expected python)" >&2
           exit 1
       - name: Build Python package
-        uses: anselmes/clact/package/python@v0.1.4
+        uses: anselmes/clact/package/python@c3f48a32de46b3c6153f7fb747b30415b2dd1786 # v0.1.5
         id: build-python
         if: inputs.target == 'python'
         with:
@@ -74,7 +74,7 @@ jobs:
           name: ${{ inputs.name }}
           wheel-dir: ${{ inputs['wheel-dir'] }}
       - name: Upload build artifact
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           if-no-files-found: error
           name: ${{ inputs.artifact-name }}
